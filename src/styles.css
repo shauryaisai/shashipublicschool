@@ -1,0 +1,221 @@
+@import "tailwindcss" source("../");
+
+@theme {
+  --color-school-navy: #003366;
+  --color-school-gold: #FFD700;
+  --color-school-white: #FFFFFF;
+  --animate-rgb-bg: rgb-bg 3s infinite linear;
+  --animate-rgb-text: rgb-text 3s infinite linear;
+  --shadow-school-glow: 0 24px 80px rgba(0, 51, 102, 0.18);
+}
+
+@keyframes rgb-bg {
+  0% { background-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
+  33% { background-color: #00ff00; box-shadow: 0 0 10px #00ff00; }
+  66% { background-color: #0000ff; box-shadow: 0 0 10px #0000ff; }
+  100% { background-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
+}
+
+@keyframes rgb-text {
+  0% { color: #ff0000; text-shadow: 0 0 8px #ff0000; }
+  33% { color: #00ff00; text-shadow: 0 0 8px #00ff00; }
+  66% { color: #0000ff; text-shadow: 0 0 8px #0000ff; }
+  100% { color: #ff0000; text-shadow: 0 0 8px #ff0000; }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 32px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float-gentle {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(18px, -14px, 0) scale(1.06);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-160%);
+  }
+
+  100% {
+    transform: translateX(160%);
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background:
+    radial-gradient(circle at top, rgba(255, 215, 0, 0.16), transparent 34%),
+    linear-gradient(180deg, #f8fafc 0%, #eff6ff 100%);
+}
+
+a, button {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+a:hover, button:hover {
+  transform: scale(1.05);
+}
+
+a:active, button:active {
+  transform: scale(0.95);
+}
+
+code {
+  font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.animate-enter {
+  opacity: 0;
+  animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+.animate-fade {
+  opacity: 0;
+  animation: fade-in 0.9s ease forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+.animate-float-gentle {
+  animation: float-gentle 6s ease-in-out infinite;
+}
+
+.animate-drift {
+  animation: drift 14s ease-in-out infinite;
+}
+
+.announcement-track {
+  animation: marquee 20s linear infinite;
+}
+
+.card-lift {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.card-lift::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 25%, rgba(255, 255, 255, 0.45) 50%, transparent 75%);
+  transform: translateX(-160%);
+  transition: transform 0.65s ease;
+  pointer-events: none;
+}
+
+.card-lift:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-school-glow);
+  border-color: rgba(255, 215, 0, 0.45);
+}
+
+.card-lift:hover::before {
+  transform: translateX(160%);
+}
+
+.nav-link-underline {
+  position: relative;
+}
+
+.nav-link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.35rem;
+  width: 100%;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+  background: currentColor;
+}
+
+.nav-link-underline:hover::after,
+.nav-link-underline.active::after,
+.nav-link-underline[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(8px);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.hero-orb-gold {
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.8), rgba(255, 215, 0, 0));
+}
+
+.hero-orb-blue {
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.45), rgba(59, 130, 246, 0));
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-enter,
+  .animate-fade {
+    opacity: 1;
+  }
+}
