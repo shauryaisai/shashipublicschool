@@ -1,8 +1,5 @@
 ﻿import { createFileRoute } from '@tanstack/react-router'
 import { GoogleGenerativeAI } from '@google/generative-ai'
-import dotenv from 'dotenv'
-
-dotenv.config()
 
 export const Route = createFileRoute('/api/ask-gemini')({
   server: {
@@ -15,12 +12,15 @@ export const Route = createFileRoute('/api/ask-gemini')({
             ? body.chatHistory
             : []
 
-          const apiKey = process.env.GEMINI_API_KEY
+          // Check both process.env and a direct fallback
+          const apiKey = process.env.GEMINI_API_KEY || process.env['GEMINI_API_KEY']
+          
           if (!apiKey) {
+            console.error('API Key Missing. Available Env Vars:', Object.keys(process.env).filter(k => !k.includes('SECRET') && !k.includes('KEY')))
             return new Response(
               JSON.stringify({
                 answer:
-                  'The AI assistant is not configured yet. Add GEMINI_API_KEY to the server environment.',
+                  'The AI assistant is still not seeing the GEMINI_API_KEY. Please check your Vercel Project Settings.',
               }),
               {
                 status: 500,
