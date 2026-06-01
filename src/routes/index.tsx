@@ -6,6 +6,7 @@ export const Route = createFileRoute('/')({
 })
 
 function Home() {
+  // Triggering new deployment
   return (
     <div className="overflow-x-hidden">
       <section className="bg-school-navy text-school-white py-24 px-4 text-center relative overflow-hidden">
