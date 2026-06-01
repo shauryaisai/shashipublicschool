@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev --port 3000",
-    "build": "vite build"
+    "dev": "vinxi dev",
+    "build": "vinxi build"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
@@ -22,6 +22,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "tailwindcss": "^4.0.6",
+    "vinxi": "^0.5.1",
     "vite-tsconfig-paths": "^6.0.2",
     "zod": "^3.24.0"
   },
