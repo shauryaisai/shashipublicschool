@@ -7,11 +7,11 @@ export const Route = createFileRoute('/')({
 
 function Home() {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <section className="bg-school-navy text-school-white py-24 px-4 text-center relative overflow-hidden">
-        <div className="absolute inset-0 opacity-15 bg-[url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center"></div>
-        <div className="hero-orb hero-orb-gold animate-drift -left-12 top-8 h-40 w-40"></div>
-        <div className="hero-orb hero-orb-blue animate-drift bottom-6 right-10 h-56 w-56" style={{ animationDelay: '1.2s' }}></div>
+        <div className="absolute inset-0 opacity-15 bg-[url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center will-change-transform"></div>
+        <div className="hero-orb hero-orb-gold animate-drift -left-12 top-8 h-40 w-40 will-change-transform"></div>
+        <div className="hero-orb hero-orb-blue animate-drift bottom-6 right-10 h-56 w-56 will-change-transform" style={{ animationDelay: '1.2s' }}></div>
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="glass-panel animate-enter rounded-[2rem] border border-white/10 px-6 py-10 shadow-2xl shadow-black/20 md:px-10">
             <div className="animate-enter text-sm font-bold uppercase tracking-[0.35em] text-school-white/80" style={{ animationDelay: '80ms' }}>
@@ -34,18 +34,18 @@ function Home() {
         </div>
       </section>
 
-      <div className="bg-school-gold text-school-navy py-3 px-4 overflow-hidden shadow-inner flex">
+      <div className="bg-school-gold text-school-navy py-3 px-4 overflow-hidden shadow-inner flex relative z-20">
         <div className="font-bold pr-4 border-r border-school-navy whitespace-nowrap z-10 bg-school-gold">
           News:
         </div>
         <div className="flex-grow overflow-hidden relative">
-          <div className="announcement-track whitespace-nowrap inline-block px-4 font-medium">
+          <div className="announcement-track whitespace-nowrap inline-block px-4 font-medium will-change-transform">
             Admissions open for Academic Year 2026-2027
           </div>
         </div>
       </div>
 
-      <section className="py-20 px-4 bg-slate-50">
+      <section className="py-20 px-4 bg-slate-50 relative z-10">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="animate-enter">
             <h2 className="text-3xl font-bold text-school-navy mb-6">Nurturing Future Leaders</h2>
@@ -73,7 +73,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="py-20 px-4 bg-white">
+      <section className="py-20 px-4 bg-white relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="animate-enter text-center mb-12">
             <h2 className="text-3xl font-bold text-school-navy mb-4">Latest News & Circulars</h2>

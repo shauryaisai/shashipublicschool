@@ -18,7 +18,11 @@ import { Route as AdmissionsRouteImport } from './routes/admissions'
 import { Route as AcademicsRouteImport } from './routes/academics'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ManageSpsLoginRouteImport } from './routes/manage-sps/login'
+import { Route as ManageSpsLayoutRouteImport } from './routes/manage-sps/_layout'
 import { Route as ApiAskGeminiRouteImport } from './routes/api.ask-gemini'
+import { Route as ManageSpsLayoutIndexRouteImport } from './routes/manage-sps/_layout/index'
+import { Route as ManageSpsLayoutGalleryRouteImport } from './routes/manage-sps/_layout/gallery'
 
 const GeminiRoute = GeminiRouteImport.update({
   id: '/gemini',
@@ -65,10 +69,30 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ManageSpsLoginRoute = ManageSpsLoginRouteImport.update({
+  id: '/manage-sps/login',
+  path: '/manage-sps/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ManageSpsLayoutRoute = ManageSpsLayoutRouteImport.update({
+  id: '/manage-sps/_layout',
+  path: '/manage-sps',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAskGeminiRoute = ApiAskGeminiRouteImport.update({
   id: '/api/ask-gemini',
   path: '/api/ask-gemini',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ManageSpsLayoutIndexRoute = ManageSpsLayoutIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ManageSpsLayoutRoute,
+} as any)
+const ManageSpsLayoutGalleryRoute = ManageSpsLayoutGalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => ManageSpsLayoutRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -82,6 +106,10 @@ export interface FileRoutesByFullPath {
   '/gallery': typeof GalleryRoute
   '/gemini': typeof GeminiRoute
   '/api/ask-gemini': typeof ApiAskGeminiRoute
+  '/manage-sps': typeof ManageSpsLayoutRouteWithChildren
+  '/manage-sps/login': typeof ManageSpsLoginRoute
+  '/manage-sps/gallery': typeof ManageSpsLayoutGalleryRoute
+  '/manage-sps/': typeof ManageSpsLayoutIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -94,6 +122,9 @@ export interface FileRoutesByTo {
   '/gallery': typeof GalleryRoute
   '/gemini': typeof GeminiRoute
   '/api/ask-gemini': typeof ApiAskGeminiRoute
+  '/manage-sps/login': typeof ManageSpsLoginRoute
+  '/manage-sps/gallery': typeof ManageSpsLayoutGalleryRoute
+  '/manage-sps': typeof ManageSpsLayoutIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -107,6 +138,10 @@ export interface FileRoutesById {
   '/gallery': typeof GalleryRoute
   '/gemini': typeof GeminiRoute
   '/api/ask-gemini': typeof ApiAskGeminiRoute
+  '/manage-sps/_layout': typeof ManageSpsLayoutRouteWithChildren
+  '/manage-sps/login': typeof ManageSpsLoginRoute
+  '/manage-sps/_layout/gallery': typeof ManageSpsLayoutGalleryRoute
+  '/manage-sps/_layout/': typeof ManageSpsLayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -121,6 +156,10 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/gemini'
     | '/api/ask-gemini'
+    | '/manage-sps'
+    | '/manage-sps/login'
+    | '/manage-sps/gallery'
+    | '/manage-sps/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -133,6 +172,9 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/gemini'
     | '/api/ask-gemini'
+    | '/manage-sps/login'
+    | '/manage-sps/gallery'
+    | '/manage-sps'
   id:
     | '__root__'
     | '/'
@@ -145,6 +187,10 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/gemini'
     | '/api/ask-gemini'
+    | '/manage-sps/_layout'
+    | '/manage-sps/login'
+    | '/manage-sps/_layout/gallery'
+    | '/manage-sps/_layout/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -158,6 +204,8 @@ export interface RootRouteChildren {
   GalleryRoute: typeof GalleryRoute
   GeminiRoute: typeof GeminiRoute
   ApiAskGeminiRoute: typeof ApiAskGeminiRoute
+  ManageSpsLayoutRoute: typeof ManageSpsLayoutRouteWithChildren
+  ManageSpsLoginRoute: typeof ManageSpsLoginRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -225,6 +273,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/manage-sps/login': {
+      id: '/manage-sps/login'
+      path: '/manage-sps/login'
+      fullPath: '/manage-sps/login'
+      preLoaderRoute: typeof ManageSpsLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/manage-sps/_layout': {
+      id: '/manage-sps/_layout'
+      path: '/manage-sps'
+      fullPath: '/manage-sps'
+      preLoaderRoute: typeof ManageSpsLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/ask-gemini': {
       id: '/api/ask-gemini'
       path: '/api/ask-gemini'
@@ -232,8 +294,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAskGeminiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/manage-sps/_layout/': {
+      id: '/manage-sps/_layout/'
+      path: '/'
+      fullPath: '/manage-sps/'
+      preLoaderRoute: typeof ManageSpsLayoutIndexRouteImport
+      parentRoute: typeof ManageSpsLayoutRoute
+    }
+    '/manage-sps/_layout/gallery': {
+      id: '/manage-sps/_layout/gallery'
+      path: '/gallery'
+      fullPath: '/manage-sps/gallery'
+      preLoaderRoute: typeof ManageSpsLayoutGalleryRouteImport
+      parentRoute: typeof ManageSpsLayoutRoute
+    }
   }
 }
+
+interface ManageSpsLayoutRouteChildren {
+  ManageSpsLayoutGalleryRoute: typeof ManageSpsLayoutGalleryRoute
+  ManageSpsLayoutIndexRoute: typeof ManageSpsLayoutIndexRoute
+}
+
+const ManageSpsLayoutRouteChildren: ManageSpsLayoutRouteChildren = {
+  ManageSpsLayoutGalleryRoute: ManageSpsLayoutGalleryRoute,
+  ManageSpsLayoutIndexRoute: ManageSpsLayoutIndexRoute,
+}
+
+const ManageSpsLayoutRouteWithChildren = ManageSpsLayoutRoute._addFileChildren(
+  ManageSpsLayoutRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -246,6 +336,8 @@ const rootRouteChildren: RootRouteChildren = {
   GalleryRoute: GalleryRoute,
   GeminiRoute: GeminiRoute,
   ApiAskGeminiRoute: ApiAskGeminiRoute,
+  ManageSpsLayoutRoute: ManageSpsLayoutRouteWithChildren,
+  ManageSpsLoginRoute: ManageSpsLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -40,13 +40,17 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="flex flex-col min-h-screen text-slate-900 font-medium relative overflow-x-hidden bg-slate-50">
-        {/* Background Image Elements */}
+        {/* GPU Accelerated Background Image Elements */}
         <div 
           className="fixed inset-0 pointer-events-none z-[-1] bg-cover bg-center bg-no-repeat opacity-20"
-          style={{ backgroundImage: "url('/background.png')" }}
+          style={{ 
+            backgroundImage: "url('/background.png')",
+            transform: "translateZ(0)",
+            willChange: "transform"
+          }}
         ></div>
-        <div className="hero-orb hero-orb-gold animate-drift fixed -top-16 -left-16 z-[-1] h-64 w-64"></div>
-        <div className="hero-orb hero-orb-blue animate-drift fixed right-0 top-1/3 z-[-1] h-72 w-72" style={{ animationDelay: '1.6s' }}></div>
+        <div className="hero-orb hero-orb-gold animate-drift fixed -top-16 -left-16 z-[-1] h-64 w-64" style={{ transform: "translateZ(0)", willChange: "transform" }}></div>
+        <div className="hero-orb hero-orb-blue animate-drift fixed right-0 top-1/3 z-[-1] h-72 w-72" style={{ animationDelay: '1.6s', transform: "translateZ(0)", willChange: "transform" }}></div>
         {children}
         <Scripts />
       </body>
@@ -63,12 +67,7 @@ function RootComponent() {
       if (!ticking) {
         requestAnimationFrame(() => {
           const y = window.scrollY
-          // Hysteresis: collapse at 60px, expand back at 10px to prevent rapid toggling
-          setScrolled(prev => {
-            if (prev && y < 10) return false
-            if (!prev && y > 60) return true
-            return prev
-          })
+          setScrolled(y > 50)
           ticking = false
         })
         ticking = true
@@ -80,18 +79,18 @@ function RootComponent() {
 
   return (
     <>
-      {/* Header */}
-      <header className="bg-school-navy text-school-white sticky top-0 z-50 shadow-md transition-all duration-500 ease-in-out">
+      {/* Optimized Header with will-change */}
+      <header className="bg-school-navy text-school-white sticky top-0 z-50 shadow-md transition-all duration-500 ease-in-out will-change-[height,padding]">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col items-center gap-4 text-center">
           <div
-            className="overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out will-change-[max-height,opacity]"
+            className="overflow-hidden transition-all duration-300 ease-in-out will-change-[max-height,opacity]"
             style={{
               maxHeight: scrolled ? '0px' : '120px',
               opacity: scrolled ? 0 : 1,
             }}
           >
-            <div className="animate-enter flex flex-col items-center gap-2 pb-2">
-              <img src="/school-logo.png" alt="Shashi Public School Logo" className="animate-float-gentle w-20 h-20 object-cover rounded-full border-2 border-school-gold shadow-md" />
+            <div className="flex flex-col items-center gap-2 pb-2">
+              <img src="/school-logo.png" alt="SPS Logo" loading="lazy" className="animate-float-gentle w-20 h-20 object-cover rounded-full border-2 border-school-gold shadow-md" />
               <div>
                 <h1 className="text-xl md:text-2xl font-extrabold">Shashi Public Sr. Secondary School</h1>
                 <p className="text-sm font-bold text-school-gold">Inspiring Excellence, Shaping Futures</p>
@@ -120,7 +119,7 @@ function RootComponent() {
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div className="animate-enter" style={{ animationDelay: '80ms' }}>
             <div className="flex items-center gap-3 mb-4">
-              <img src="/school-logo.png" alt="Shashi Public School Logo" className="w-16 h-16 rounded-full object-cover border-2 border-school-gold shadow-md" />
+              <img src="/school-logo.png" alt="SPS Logo" loading="lazy" className="w-16 h-16 rounded-full object-cover border-2 border-school-gold shadow-md" />
               <h2 className="text-xl font-bold">Shashi Public School</h2>
             </div>
             <p className="text-sm mb-4 opacity-90 leading-relaxed font-semibold">
