@@ -40,17 +40,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="flex flex-col min-h-screen text-slate-900 font-medium relative overflow-x-hidden bg-slate-50">
-        {/* GPU Accelerated Background Image Elements */}
+        {/* Simplified Background Image Elements */}
         <div 
           className="fixed inset-0 pointer-events-none z-[-1] bg-cover bg-center bg-no-repeat opacity-20"
-          style={{ 
-            backgroundImage: "url('/background.png')",
-            transform: "translateZ(0)",
-            willChange: "transform"
-          }}
+          style={{ backgroundImage: "url('/background.png')" }}
         ></div>
-        <div className="hero-orb hero-orb-gold animate-drift fixed -top-16 -left-16 z-[-1] h-64 w-64" style={{ transform: "translateZ(0)", willChange: "transform" }}></div>
-        <div className="hero-orb hero-orb-blue animate-drift fixed right-0 top-1/3 z-[-1] h-72 w-72" style={{ animationDelay: '1.6s', transform: "translateZ(0)", willChange: "transform" }}></div>
+        <div className="hero-orb hero-orb-gold animate-drift fixed -top-16 -left-16 z-[-1] h-64 w-64"></div>
+        <div className="hero-orb hero-orb-blue animate-drift fixed right-0 top-1/3 z-[-1] h-72 w-72" style={{ animationDelay: '1.6s' }}></div>
         {children}
         <Scripts />
       </body>
