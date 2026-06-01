@@ -1,9 +1,7 @@
 {
   "version": 2,
-  "framework": null,
-  "buildCommand": "npm run build",
-  "outputDirectory": ".output",
+  "public": true,
   "rewrites": [
-    { "source": "/(.*)", "destination": "/server/index.mjs" }
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
